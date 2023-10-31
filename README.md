@@ -13,4 +13,6 @@ You need to solder the TS Jack's tip connector to a 47 Ω resister and then on t
 
 You should end up with something that looks a bit like this:
 
+![A built norns2sinfonion](https://github.com/subvertnormality/norns2sinfonion/blob/main/images/norns2sinfonion.jpg?raw=true)
+
 The TS Jack connects to one of your Sinfonion in ports. Select this port to be sync in from the options menu.
