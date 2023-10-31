@@ -1,4 +1,4 @@
-norns2sinfonion allows [mosaic](https://github.com/subvertnormality/mosaic) to sync it's global scales with the Sinfonion eurorack quantiser. It may allow other norns scripts to do the same with a bit of work (interested? feel free to (message me)[https://llllllll.co/u/byzero/]). 
+norns2sinfonion allows [mosaic](https://github.com/subvertnormality/mosaic) to sync global scales with the Sinfonion eurorack quantiser. It may allow other norns scripts to do the same with a bit of work (interested? feel free to (message me)[https://llllllll.co/u/byzero/]). 
 
 To enable this, you need to do a bit of DIY but it's about as straight forward as it gets. 
 
