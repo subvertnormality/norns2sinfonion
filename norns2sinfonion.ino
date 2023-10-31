@@ -189,6 +189,16 @@ void setup() {
         buffer[i] = 0;
     }
     buffer[0] = 0x80;
+    set_root_note(0);
+    set_degree_nr(0);
+    set_mode_nr(0);
+    set_transposition(0);
+    set_clock(0);
+    set_beat(0);
+    set_step(0);
+    set_reset(0);
+    set_chaotic_detune(0);
+    set_harmonic_shift(0);
 }
 
 void loop() {
