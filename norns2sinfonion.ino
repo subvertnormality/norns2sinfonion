@@ -60,6 +60,7 @@ uint8_t get_clock() {
 }
 
 void set_transposition(int8_t trans) {
+    trans = trans - 64;
     trans = max(-64, min(63, trans));
     buffer[3] = (buffer[3] & ~0x7f) | ((trans + 64) & 0x7f);
 }
@@ -69,8 +70,23 @@ int8_t transposition() {
 }
 
 void set_chaotic_detune(float detune) {
-    detune = max(-1.0, min(1.0, detune));
-    int8_t detune_int = floor(detune * 63.0) + 63;
+
+    // First, adjust the midiValue so that 64 maps to 0
+    int adjustedValue = detune - 64;
+
+    // Now, adjustedValue ranges from -64 to 63. 
+    // We need to scale this to the range -1.0 to 1.0.
+    // Since 63/64 is very close to 1, we can simply divide adjustedValue by 64.0.
+    float moded_detune = adjustedValue / 64.0;
+
+    // Ensure the result stays within the desired range due to potential floating point imprecision
+    if (moded_detune > 1.0) {
+        moded_detune = 1.0;
+    } else if (moded_detune < -1.0) {
+        moded_detune = -1.0;
+    }
+    moded_detune = max(-1.0, min(1.0, moded_detune));
+    int8_t detune_int = floor(moded_detune * 63.0) + 63;
     buffer[4] = detune_int & 0x7f;
 }
 
@@ -80,6 +96,7 @@ float chaotic_detune() {
 }
 
 void set_harmonic_shift(int8_t shift) {
+    shift = shift - 11;
     buffer[5] = shift + 16;
 }
 
@@ -109,25 +126,6 @@ void set_reset(uint8_t reset_value) {
 
 uint8_t reset() {
     return (buffer[5] & 0x60) >> 5;
-}
-
-void handle_rx_irq(uint8_t byte) {
-    last_interrupt = millis();
-    if (byte & 0x80) {
-        wait_for_sync = false;
-        buffer_index = 0;
-        buffer[0] = byte;
-    } else if (!wait_for_sync) {
-        buffer_index++;
-        buffer[buffer_index] = byte;
-    }
-}
-
-uint8_t handle_tx_irq() {
-    last_interrupt = millis();
-    uint8_t byte = buffer[buffer_index ];
-    buffer_index  = (buffer_index  + 1) % SYNC_BUFFER_SIZE;
-    return byte;
 }
 
 void dump() {
@@ -192,13 +190,13 @@ void setup() {
     set_root_note(0);
     set_degree_nr(0);
     set_mode_nr(0);
-    set_transposition(0);
+    set_transposition(64);
     set_clock(0);
     set_beat(0);
     set_step(0);
     set_reset(0);
-    set_chaotic_detune(0);
-    set_harmonic_shift(0);
+    set_chaotic_detune(64);
+    set_harmonic_shift(11);
 }
 
 void loop() {
