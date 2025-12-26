@@ -7,11 +7,11 @@ To enable this, you need to do a bit of DIY but it's about as straight forward a
 You'll need:
 
 * A Teensy 3.2+
-* A 47 Ω resister
+* A 4.7 Ω resister
 * A TS Jack
 * The ability to hook this together, probably by soldering onto strip board
 
-You need to solder the TS Jack's tip connector to a 47 Ω resister and then on to the TX2 pin on your teensy. The sleeve connector needs to be soldered onto the ground pin on the teensy. Flash your teensy with the included firmware. Select "MIDI" from the Tools->USB Type menu of the arduino app before uploading flashing.
+You need to solder the TS Jack's tip connector to a 4.7 Ω resister and then on to the TX2 pin on your teensy. The sleeve connector needs to be soldered onto the ground pin on the teensy. Flash your teensy with the included firmware. Select "MIDI" from the Tools->USB Type menu of the arduino app before uploading flashing.
 
 You should end up with something that looks a bit like this:
 
